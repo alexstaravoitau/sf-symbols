@@ -88,8 +88,9 @@ async function make() {
 
     const missingNames = [...namesToExport].filter(name => !processedNames.has(name));
     if (missingNames.length > 0) {
-        console.log("Missing symbols in namesToExport:");
+        console.log("====== MISSING SYMBOLS =======");
         missingNames.forEach(name => console.log(name));
+        console.log("==============================");
     }
 
     console.log("SVG Generation Complete!");
