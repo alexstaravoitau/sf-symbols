@@ -2,7 +2,7 @@ pencil.and.scribble
 swatchpalette
 book.pages
 paintpalette
-music.quarternote.7
+music.quarternote.3
 building.columns
 star.bubble
 questionmark.app
@@ -29,7 +29,7 @@ dollarsign.circle
 cart
 plus.forwardslash.minus
 fork.knife
-akeoutbag.and.cup.and.straw
+takeoutbag.and.cup.and.straw
 menucard
 frying.pan
 heart.circle
@@ -62,7 +62,7 @@ figure.2.arms.open
 person.line.dotted.person
 face.smiling
 gift
-bubble
+bubble.right
 graduationcap
 leaf
 atom
@@ -94,7 +94,6 @@ brain.head.profile
 books.vertical
 hands.and.sparkles
 exclamationmark.octagon
-figure.2
 book.and.wrench
 pencil
 text.book.closed
