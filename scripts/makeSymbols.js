@@ -48,10 +48,12 @@ async function make() {
         .split(/\r?\n/);
 
     let exportCounter = 0;
+    const processedNames = new Set();
 
     names.forEach((name, namesIndex) => {
         if (namesToExport.has(name)) {
             exportCounter++;
+            processedNames.add(name);
             console.log(`${exportCounter}/${namesToExport.size} - ${name}`);
 
             const path = font.getPath(
@@ -83,6 +85,12 @@ async function make() {
             writeSvgFile(PATHS.OUT_DIR, svgFileName, svgContents);
         }
     });
+
+    const missingNames = [...namesToExport].filter(name => !processedNames.has(name));
+    if (missingNames.length > 0) {
+        console.log("Missing symbols in namesToExport:");
+        missingNames.forEach(name => console.log(name));
+    }
 
     console.log("SVG Generation Complete!");
 }
