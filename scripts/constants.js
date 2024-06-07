@@ -1,4 +1,4 @@
-const SF_SYMBOLS_VERSION = "5.0";
+const SF_SYMBOLS_VERSION = "5.1";
 
 const PATH_PRECISION = 2;
 
