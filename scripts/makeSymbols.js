@@ -46,38 +46,43 @@ async function make() {
 
     const names = fs.readFileSync(PATHS.NAMES, { encoding: "utf8", flag: "r" })
         .split(/\r?\n/)
-        .filter(name => namesToExport.includes(name)); // Only process names that are in the names.export file
 
     names.forEach((name, namesIndex) => {
-        console.log(`${namesIndex + 1}/${names.length} - ${name}`);
+        if (namesToExport.has(name)) {
+            console.log(`${namesIndex + 1}/${names.length} - ${name}`);
 
-        const path = font.getPath(
-            chars[namesIndex],
-            0,
-            0,
-            FONT_SIZE
-        );
-        const bb = path.getBoundingBox();
-        const pathData = path.toPathData(PATH_PRECISION);
+            const path = font.getPath(
+                chars[namesIndex],
+                0,
+                0,
+                FONT_SIZE
+            );
+            const bb = path.getBoundingBox();
+            const pathData = path.toPathData(PATH_PRECISION);
 
-        const transform = {
-            translate: [bb.x1 * -1, bb.y1 * -1],
-            origin: [0, 0],
-        };
+            const transform = {
+                translate: [bb.x1 * -1, bb.y1 * -1],
+                origin: [0, 0],
+            };
 
-        const transformed2DPathString = new SVGPathCommander(pathData)
-            .transform(transform)
-            .toString();
+            const transformed2DPathString = new SVGPathCommander(pathData)
+                .transform(transform)
+                .toString();
 
-        const svgContents = createSvgFileContents(
-            transformed2DPathString,
-            bb.x2 - bb.x1,
-            bb.y2 - bb.y1
-        );
+            const svgContents = createSvgFileContents(
+                transformed2DPathString,
+                bb.x2 - bb.x1,
+                bb.y2 - bb.y1
+            );
 
-        const svgFileName = `${name}.svg`;
+            const svgFileName = `${name}.svg`;
 
-        writeSvgFile(PATHS.OUT_DIR, svgFileName, svgContents);
+            writeSvgFile(PATHS.OUT_DIR, svgFileName, svgContents);
+        }
+        else {
+
+        }
+
     });
 
     console.log("SVG Generation Complete!");
