@@ -41,15 +41,18 @@ async function make() {
         .readFileSync(PATHS.CHARS, { encoding: "utf-8" })
         .match(/.{1,2}/g);
 
-    const namesToExport = fs.readFileSync(PATHS.EXPORT_NAMES, { encoding: "utf8", flag: "r" })
-        .split(/\r?\n/)
+    const namesToExport = new Set(fs.readFileSync(PATHS.EXPORT_NAMES, { encoding: "utf8", flag: "r" })
+        .split(/\r?\n/));
 
     const names = fs.readFileSync(PATHS.NAMES, { encoding: "utf8", flag: "r" })
-        .split(/\r?\n/)
+        .split(/\r?\n/);
+
+    let exportCounter = 0;
 
     names.forEach((name, namesIndex) => {
         if (namesToExport.has(name)) {
-            console.log(`${namesIndex + 1}/${names.length} - ${name}`);
+            exportCounter++;
+            console.log(`${exportCounter}/${namesToExport.size} - ${name}`);
 
             const path = font.getPath(
                 chars[namesIndex],
@@ -79,10 +82,6 @@ async function make() {
 
             writeSvgFile(PATHS.OUT_DIR, svgFileName, svgContents);
         }
-        else {
-
-        }
-
     });
 
     console.log("SVG Generation Complete!");
